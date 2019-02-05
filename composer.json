@@ -1,0 +1,24 @@
+{
+  "name": "vendor_name/package_name",
+  "description": "description_text",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "author's name",
+      "email": "email@example.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MTGCli\\": "MTGCli"
+    }
+  },
+  "require": {
+    "tracy/tracy": "v2.5.1",
+    "nette/caching": "v2.5.8",
+    "guzzlehttp/guzzle": "6.3.3",
+    "rybakit/msgpack": "v0.5.3",
+    "league/csv": "^9.0"
+  }
+}

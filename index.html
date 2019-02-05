@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>MTG Binder</title>
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.js" integrity="sha256-vtbCELc4mfidIiNdxWDVPvAK5AI86PbpSotyWoGUyxE=" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Kurale|Lora" rel="stylesheet">
+        <style>
+            @font-face {
+                font-family: Beleren;
+                src: url('fonts/Beleren-Bold.ttf');
+                font-weight:400;
+            }
+            @font-face {
+                font-family: BelerenCaps;
+                src: url('fonts/Beleren Small Caps.ttf');
+                font-weight:400;
+            }
+            body {
+                background-color: #fde397;
+                font-family: 'Lora', serif;
+            }
+            h1, h2, h3 {
+                font-family: 'BelerenCaps', sans-serif;
+            }
+            .cardlink {
+                font-family: 'Beleren', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Magic The Gathering Binder</h1>
+        <table id='cardtable' border='1' class="tablesorter">
+        <thead><tr><th>Name</th><th>Set</th><th>F?</th><th>Colors</th><th>Mana Cost</th><th>Type</th><th>Price</th></tr></thead><tbody><tr>
+    <td><a class="cardlink" href="https://scryfall.com/card/rna/151/absorb?utm_source=api">Absorb</a></td>
+    <td>rna</td>
+    <td></td>
+    <td>UW</td>
+    <td>{W}{U}{U}</td>
+    <td>Instant</td>
+    <td>1.64</td>
+</tr><tr>
+    <td><a class="cardlink" href="https://scryfall.com/card/m19/3/ajani-adversary-of-tyrants?utm_source=api">Ajani, Adversary of Tyrants</a></td>
+    <td>m19</td>
+    <td></td>
+    <td>W</td>
+    <td>{2}{W}{W}</td>
+    <td>Legendary Planeswalker — Ajani</td>
+    <td>11.17</td>
+</tr><tr>
+    <td><a class="cardlink" href="https://scryfall.com/card/pm19/128s/alpine-moon?utm_source=api">Alpine Moon</a></td>
+    <td>pm19</td>
+    <td>F</td>
+    <td>R</td>
+    <td>{R}</td>
+    <td>Enchantment</td>
+    <td></td>
+</tr><tr>
+    <td><a class="cardlink" href="https://scryfall.com/card/isd/3/angelic-overseer?utm_source=api">Angelic Overseer</a></td>
+    <td>isd</td>
+    <td></td>
+    <td>W</td>
+    <td>{3}{W}{W}</td>
+    <td>Creature — Angel</td>
+    <td>1.79</td>
+</tr><tr>
+    <td><a class="cardlink" href="https://scryfall.com/card/m19/129/apex-of-power?utm_source=api">Apex of Power</a></td>
+    <td>m19</td>
+    <td></td>
+    <td>R</td>
+    <td>{7}{R}{R}{R}</td>
+    <td>Sorcery</td>
+    <td>0.53</td>
+</tr><tr>
+    <td><a class="cardlink" href="https://scryfall.com/card/pwpn/22/woolly-thoctar?utm_source=api">Woolly Thoctar</a></td>
+    <td>pwpn</td>
+    <td>F</td>
+    <td>GRW</td>
+    <td>{R}{G}{W}</td>
+    <td>Creature — Beast</td>
+    <td>0.40</td>
+</tr></tbody><tfoot><tr><td colspan='6' align='right'>Total Value&nbsp;</td><td>15.53</td></tr>        </table>
+    <script>
+        $(function() {
+            $("#cardtable").tablesorter({
+                theme: 'metro-dark',
+                widthFixed: true,
+                widgets: ['zebra', 'columns', 'filter']
+            });
+        });
+    </script>
+    </body>
+</html>
