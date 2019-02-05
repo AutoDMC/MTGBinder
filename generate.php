@@ -9,8 +9,13 @@ $scry = new CachedScryfall();
 $csv = Reader::createFromPath('collection.csv', 'r');
 $csv->setHeaderOffset(0);
 
-$table = "<thead><tr><th>Name</th><th>Set</th><th>F?</th><th>Colors</th><th>Mana Cost</th><th>Type</th><th>Price</th></tr></thead><tbody>";
+$table = "<tbody>";
 $totalValue = 0;
+
+$shortifySetMap = [
+    'Wizards Play Network' => 'WPN',
+    'Core Set' => 'Core',
+];
 foreach ($csv->getRecords() as $record) {
     $set = $record['Set ID'];
     $additionalParameters = '';
@@ -21,11 +26,12 @@ foreach ($csv->getRecords() as $record) {
     }
     $cardinfo = $scry->identifyByName($record['Card'], $set, $additionalParameters)['data'][0];
     dump($cardinfo);
+    $cardinfo['rarity'] = ucfirst($cardinfo['rarity']);
 
     $foil = '<td></td>';
     $price = $cardinfo['prices']['usd'];
     if ($record['Foil'] === 'FOIL') {
-        $foil = '<td>F</td>';
+        $foil = '<td>Yes</td>';
         $price = $cardinfo['prices']['usd_foil'];
     }
 
@@ -34,11 +40,38 @@ foreach ($csv->getRecords() as $record) {
         $colorIdentity .= $color;
     }
 
+    // Shortify the set name, for table space
+    $setName = $cardinfo['set_name'];
+    foreach ($shortifySetMap as $long=>$short) {
+        $setName = str_replace($long, $short, $setName);
+    }
+
+    $tradeable = "Perhaps";
+    if ($record['Quantity'] > 4) {
+        $tradeable = 'Yes';
+    } elseif ($record['Quantity'] > 1) {
+        $tradeable = 'Maybe';
+        if ($record['Foil'] == 'FOIL' || $cardinfo['rarity'] == 'Mythic') {
+            $tradeable = 'Unlikely';
+        }
+        if (round($price) > 10) {
+            $tradeable = 'Cash';
+        }
+    } elseif ($record['Quantity'] == 1) {
+        $tradeable = 'Remote';
+        if ($record['Foil'] == 'FOIL' || $cardinfo['rarity'] == 'Mythic') {
+            $tradeable = 'Hell No';
+        }
+    }
+
     $tableLine = <<<TABLELINE
 <tr>
-    <td><a class="cardlink" href="{$cardinfo['scryfall_uri']}">{$cardinfo['name']}</a></td>
-    <td>{$cardinfo['set']}</td>
+    <td>{$tradeable}</td>
+    <td><a class="cardlink" data-tippy="<div><img src='{$cardinfo['image_uris']['border_crop']}' width='200px'/></div>" data-tippy-placement="bottom-start" data-tippy-boundary="viewport" href="{$cardinfo['scryfall_uri']}">{$cardinfo['name']}</a></td>
+    <td>{$setName}</td>
+    <td>{$cardinfo['rarity']}</td>
     {$foil}
+    <td>{$record['Quantity']}</td>
     <td>{$colorIdentity}</td>
     <td>{$cardinfo['mana_cost']}</td>
     <td>{$cardinfo['type_line']}</td>
@@ -47,10 +80,11 @@ foreach ($csv->getRecords() as $record) {
 TABLELINE;
 
     $table .= $tableLine;
-    $totalValue = $totalValue + $price;
+    $totalValue = $totalValue + ($price * $record['Quantity']);
 }
 
-$table .= "</tbody><tfoot><tr><td colspan='6' align='right'>Total Value&nbsp;</td><td>{$totalValue}</td></tr>";
+$totalValue = number_format($totalValue, 2);
+$table .= "</tbody><tfoot><tr><td colspan='9' align='right'>Total Value&nbsp;</td><td>{$totalValue}</td></tr>";
 
 ob_start();
 include('template.php');
