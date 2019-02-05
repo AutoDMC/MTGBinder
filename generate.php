@@ -54,7 +54,7 @@ foreach ($csv->getRecords() as $record) {
         if ($record['Foil'] == 'FOIL' || $cardinfo['rarity'] == 'Mythic') {
             $tradeable = 'Unlikely';
         }
-        if (round($price) > 10) {
+        if (round($price) > 25) {
             $tradeable = 'Cash';
         }
     } elseif ($record['Quantity'] == 1) {
