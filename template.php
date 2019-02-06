@@ -17,6 +17,11 @@
                 integrity="sha256-1dNFnpGK7o5XmrnR9pK+ZU4yNLyBn1GAbNr8ijAJ1xw="
                 crossorigin="anonymous"></script>
         <script src="https://unpkg.com/tippy.js@3/dist/tippy.all.min.js"></script>
+        <script>
+            tippy.setDefaults({
+                boundary: "viewport"
+            })
+        </script>
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/css/theme.materialize.min.css"
               integrity="sha256-Ins/1wFNaW8KmsbOJp2VK2/P11CRAA8iJ6AvZRsXSzw="

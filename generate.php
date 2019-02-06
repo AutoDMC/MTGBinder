@@ -67,7 +67,7 @@ foreach ($csv->getRecords() as $record) {
     $tableLine = <<<TABLELINE
 <tr>
     <td>{$tradeable}</td>
-    <td><a class="cardlink" data-tippy="<div><img src='{$cardinfo['image_uris']['border_crop']}' width='200px'/></div>" data-tippy-placement="bottom-start" data-tippy-boundary="viewport" href="{$cardinfo['scryfall_uri']}">{$cardinfo['name']}</a></td>
+    <td><a class="cardlink" data-tippy="<div><img src='{$cardinfo['image_uris']['border_crop']}' width='200px'/></div>" data-tippy-placement="top-start" data-tippy-boundary="viewport" href="{$cardinfo['scryfall_uri']}">{$cardinfo['name']}</a></td>
     <td>{$setName}</td>
     <td>{$cardinfo['rarity']}</td>
     {$foil}
