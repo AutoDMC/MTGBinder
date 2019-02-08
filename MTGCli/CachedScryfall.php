@@ -29,7 +29,7 @@ class CachedScryfall extends Scryfall
         $data = $this->cacheGet($key);
         if ($data === null) {
             $data = parent::getByMultiverse($multiverseId);
-            $this->cachePut($key, $data, [Cache::EXPIRE => '7 days']);
+            $this->cachePut($key, $data, [Cache::EXPIRE => '20 hours']);
         }
         return $data;
     }
