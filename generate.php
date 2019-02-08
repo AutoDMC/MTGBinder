@@ -24,7 +24,13 @@ foreach ($csv->getRecords() as $record) {
         $additionalParameters = 'is:promo+-is:digital';
         $set = null;
     }
-    $cardinfo = $scry->identifyByName($record['Card'], $set, $additionalParameters)['data'][0];
+    try {
+        $cardinfo = $scry->identifyByName($record['Card'], $set, $additionalParameters)['data'][0];
+    } catch (Exception $e) {
+        echo "EXCEPTION!";
+        continue;
+    }
+    
     dump($cardinfo);
     $cardinfo['rarity'] = ucfirst($cardinfo['rarity']);
 
